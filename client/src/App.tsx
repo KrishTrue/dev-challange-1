@@ -13,8 +13,8 @@ export const App: React.FC = () => {
       {/* Top Navigation */}
       <Header />
 
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      {/* Main Content Area with generous breathing room */}
+      <main className="flex-1 max-w-5xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
         {activeTab === 'home' && <HomePage />}
         {activeTab === 'sources' && <SourcesPage />}
       </main>

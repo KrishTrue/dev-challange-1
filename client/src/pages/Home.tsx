@@ -11,16 +11,29 @@ import { MedicalDisclaimer } from '@/components/home/MedicalDisclaimer';
 
 export const HomePage: React.FC = () => {
   return (
-    <div className="max-w-4xl mx-auto space-y-2">
+    <div className="max-w-3xl mx-auto space-y-8 sm:space-y-10">
+      {/* 1. Welcoming Hero & Trust Framing */}
       <Hero />
+
+      {/* 2. Optional workflow educational collapsible */}
       <HowItWorks />
+
+      {/* 3. Symptom Reporting Engine */}
       <SymptomSelector />
-      <SelectionStatus />
-      <AnalyzeButton />
+
+      {/* 4. Selection Feedback State & Analyze Action */}
+      <div className="space-y-4">
+        <SelectionStatus />
+        <AnalyzeButton />
+      </div>
+
+      {/* 5. Results & Clinical Guidance (Shown upon analysis) */}
       <PredictionResult />
       <SelectedSymptoms />
       <DiseaseDescription />
-      <div className="pt-4">
+
+      {/* 6. Medical Safety Protocol */}
+      <div className="pt-6 border-t border-slate-200/60">
         <MedicalDisclaimer />
       </div>
     </div>
