@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppStore } from '@/store/appStore';
-import { RefreshCw, HelpCircle, Activity } from 'lucide-react';
+import { RotateCcw, HelpCircle, Activity, CheckCircle2 } from 'lucide-react';
 
 export const PredictionResult: React.FC = () => {
   const { prediction, selectedSymptoms, resetPrediction, isPredicting } = useAppStore();
@@ -29,9 +29,9 @@ export const PredictionResult: React.FC = () => {
         <button
           type="button"
           onClick={resetPrediction}
-          className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-lg bg-white hover:bg-slate-50 px-3 py-1.5 text-xs font-medium text-slate-600 transition-colors cursor-pointer border border-slate-200 shadow-2xs"
+          className="inline-flex items-center gap-1.5 self-start sm:self-auto rounded-lg bg-white hover:bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors cursor-pointer border border-slate-200 shadow-2xs"
         >
-          <RefreshCw className="h-3 w-3 text-slate-400" />
+          <RotateCcw className="h-3 w-3 text-slate-400" />
           <span>Start Over</span>
         </button>
       </div>
@@ -39,24 +39,27 @@ export const PredictionResult: React.FC = () => {
       {/* Main Condition Presentation */}
       <div className="p-6 sm:p-8 space-y-5">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-teal-700 bg-teal-50 px-2.5 py-1 rounded-md border border-teal-100 inline-block mb-2">
-            Possible Condition
-          </span>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="inline-flex items-center gap-1 text-xs font-semibold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-md border border-emerald-200/60">
+              <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+              Highest Matching Condition
+            </span>
+          </div>
 
           <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
             {prediction}
           </h3>
 
           <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-            Based on the symptoms you selected, our clinical pattern model found that <strong className="text-slate-900 font-semibold">{prediction}</strong> is the most common match.
+            Based on the clinical pattern of your reported symptoms, our Random Forest classifier calculated <strong className="text-slate-900 font-semibold">{prediction}</strong> as the primary match.
           </p>
         </div>
 
-        {/* Gentle Context Note */}
+        {/* Clinical Note */}
         <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-4 flex items-start gap-3 text-xs text-slate-600 leading-relaxed">
-          <HelpCircle className="h-4 w-4 text-slate-400 shrink-0 mt-0.5" />
+          <HelpCircle className="h-4 w-4 text-blue-600 shrink-0 mt-0.5" />
           <p>
-            <strong className="text-slate-800 font-semibold">What this means:</strong> Many health conditions share identical symptoms. This result is meant to guide your conversation with a doctor or nurse, not give a conclusive diagnosis.
+            <strong className="text-slate-800 font-semibold">Important context:</strong> Many health conditions share overlapping symptoms. This result is designed to prepare you with targeted questions for your doctor or healthcare provider.
           </p>
         </div>
       </div>

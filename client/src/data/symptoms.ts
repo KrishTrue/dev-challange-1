@@ -131,15 +131,14 @@ export const SYMPTOMS: string[] = [
   "Red Sore Around Nose",
   "Yellow Crust Ooze"
 ];
- 
- export interface SymptomCategory {
-   id: string;
-   label: string;
-   description: string;
-   symptoms: string[];
- }
- 
- export const SYMPTOM_CATEGORIES: SymptomCategory[] = [
+export interface SymptomCategory {
+  id: string;
+  label: string;
+  description: string;
+  symptoms: string[];
+}
+
+export const SYMPTOM_CATEGORIES: SymptomCategory[] = [
    {
      id: 'general',
      label: 'General & Systemic',

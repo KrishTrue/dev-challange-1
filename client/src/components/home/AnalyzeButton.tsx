@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppStore } from '@/store/appStore';
 import { Button } from '@/components/ui/button';
-import { Loader2, ArrowRight, AlertCircle, HeartHandshake } from 'lucide-react';
+import { Loader2, ArrowRight, AlertCircle, Stethoscope } from 'lucide-react';
 
 export const AnalyzeButton: React.FC = () => {
   const { selectedSymptoms, isPredicting, predictDisease, error } = useAppStore();
@@ -19,12 +19,12 @@ export const AnalyzeButton: React.FC = () => {
           {isPredicting ? (
             <div className="flex items-center gap-2.5">
               <Loader2 className="h-4 w-4 animate-spin text-white" />
-              <span>Checking possible causes...</span>
+              <span>Analyzing symptom matches...</span>
             </div>
           ) : (
             <div className="flex items-center justify-center gap-2">
-              <HeartHandshake className="h-4 w-4 text-blue-200" />
-              <span>Check Potential Causes</span>
+              <Stethoscope className="h-4 w-4 text-blue-200" />
+              <span>Analyze Symptoms</span>
               <ArrowRight className="h-4 w-4 text-blue-200 ml-1" />
             </div>
           )}
@@ -32,7 +32,7 @@ export const AnalyzeButton: React.FC = () => {
 
         {isDisabled && selectedSymptoms.length === 0 && (
           <p className="text-xs text-slate-400">
-            Choose what you are experiencing to continue
+            Select one or more symptoms above to proceed
           </p>
         )}
       </div>
@@ -41,7 +41,7 @@ export const AnalyzeButton: React.FC = () => {
         <div className="rounded-xl border border-red-200 bg-red-50/80 p-4 text-sm text-red-900 flex items-start gap-3 shadow-2xs">
           <AlertCircle className="h-5 w-5 text-red-600 shrink-0 mt-0.5" />
           <div className="space-y-0.5">
-            <h4 className="font-semibold text-red-900 text-xs sm:text-sm">We couldn&apos;t complete your check</h4>
+            <h4 className="font-semibold text-red-900 text-xs sm:text-sm">Unable to complete symptom check</h4>
             <p className="text-xs text-red-700 leading-relaxed">{error}</p>
           </div>
         </div>

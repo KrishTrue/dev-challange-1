@@ -1,75 +1,94 @@
 # AI Disease Prediction System
 
-🏥 **Advanced AI-powered disease prediction based on symptoms**
+**Advanced AI-powered disease prediction based on symptoms**
 
 An intelligent medical assistance system that uses machine learning to predict diseases based on user-selected symptoms, powered by Random Forest classification and Google Gemini AI for detailed disease descriptions.
 
-## 🚀 Quick Start
+## Quick Start
 
 ### For Users
 
 Visit the web application and start predicting diseases based on your symptoms:
 
-- Select symptoms from 130+ available options
-- Get AI-powered disease predictions
-- Receive detailed disease information
+- Pick your symptoms from 130+ options in a chat-style assistant
+- Get an AI-powered disease prediction
+- Read a structured overview: description, symptoms, causes, precautions and medication
 
 ### For Developers
+
+**Prerequisites:** Python 3 with [uv](https://docs.astral.sh/uv/), Node.js 20+ and [pnpm](https://pnpm.io/)
 
 ```bash
 # Clone repository
 git clone <repository-url>
-cd disease-detector
+cd dev-challenge-1
 
-# Start backend (Terminal 1)
+# Start backend (Terminal 1) - runs on http://127.0.0.1:5000
 cd backend && ./run.sh dev
 
-# Start frontend (Terminal 2)
-cd frontend && uv run python main.py
+# Start frontend (Terminal 2) - runs on http://localhost:5173
+cd client
+pnpm install
+pnpm dev
 ```
 
-## 📊 System Overview
+The client reads the API URL from `client/.env`:
 
-- **🧠 ML Model**: Random Forest Classifier with ~95% accuracy
-- **🔬 Symptoms**: 132 different medical symptoms
-- **🏥 Diseases**: 41 different medical conditions
-- **🤖 AI Integration**: Google Gemini for disease descriptions
-- **🌐 Interface**: Modern Streamlit web application
-- **⚡ API**: Flask-based REST API
-
-## 📁 Project Structure
-
-```
-disease-detector/
-├── docs/                    # 📚 Comprehensive documentation
-├── ml/                      # 🧠 Machine learning components
-├── backend/                 # 🔧 Flask API server
-├── frontend/                # 🎨 Streamlit web interface
-└── README.md               # 📖 This file
+```bash
+VITE_API_BASE_URL=http://localhost:5000/api
 ```
 
-## 📚 Documentation
+## System Overview
+
+- **ML Model**: Random Forest Classifier with ~95% accuracy
+- **Symptoms**: 132 different medical symptoms
+- **Diseases**: 41 different medical conditions
+- **AI Integration**: Google Gemini for disease descriptions
+- **Interface**: React + Vite chat-style web app
+- **API**: Flask-based REST API
+
+## Project Structure
+
+```
+dev-challenge-1/
+├── docs/                    # Comprehensive documentation
+├── ml/                      # Machine learning components
+├── backend/                 # Flask API server
+├── client/                  # React + Vite web app
+│   └── src/
+│       ├── api/             # Axios client for the Flask API
+│       ├── components/      # Chat UI, layout and shared components
+│       ├── data/            # Symptom list and categories
+│       ├── lib/             # Helpers, incl. the disease description parser
+│       ├── pages/           # Home (assistant) and Sources pages
+│       └── store/           # Zustand state (chat messages, selection)
+└── README.md                # This file
+```
+
+## Documentation
 
 Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 
 | Document | Description |
 | ----------------------------------------------------------------- | ------------------------------- |
-| **[📋 Documentation Index](./docs/README.md)** | Complete documentation overview |
-| **[🧠 ML Documentation](./docs/ml-documentation.md)** | Machine learning model details |
-| **[🔧 Backend Documentation](./docs/backend-documentation.md)** | Flask API reference |
-| **[🎨 Frontend Documentation](./docs/frontend-documentation.md)** | Streamlit interface guide |
-| **[📡 API Documentation](./docs/api-documentation.md)** | Complete API reference |
-| **[🚀 Deployment Guide](./docs/deployment-guide.md)** | Production deployment |
-| **[🛠️ Development Guide](./docs/development-guide.md)** | Developer setup and workflow |
-| **[👤 User Guide](./docs/user-guide.md)** | End-user instructions |
+| **[Documentation Index](./docs/README.md)** | Complete documentation overview |
+| **[ML Documentation](./docs/ml-documentation.md)** | Machine learning model details |
+| **[Backend Documentation](./docs/backend-documentation.md)** | Flask API reference |
+| **[Frontend Documentation](./docs/frontend-documentation.md)** | Web interface guide |
+| **[API Documentation](./docs/api-documentation.md)** | Complete API reference |
+| **[Deployment Guide](./docs/deployment-guide.md)** | Production deployment |
+| **[Development Guide](./docs/development-guide.md)** | Developer setup and workflow |
+| **[User Guide](./docs/user-guide.md)** | End-user instructions |
 
-## 🎯 Features
+## Features
 
 ### Core Features
 
 - **Symptom-based Prediction**: Select from 130+ medical symptoms
 - **AI Disease Descriptions**: Detailed information powered by Google Gemini
-- **Modern UI**: Responsive, dark-themed web interface
+- **Chat-style Assistant**: Your symptoms appear on the right and the assessment on the left, like a chatbot
+- **Symptom Picker**: Search, filter by body-system category, or one-click common symptoms
+- **Structured Report**: Each result is split into Overview, Symptoms, Causes, Precautions and Medication
 - **REST API**: Programmatic access to predictions
 - **Production Ready**: Docker support and production configurations
 
@@ -77,33 +96,39 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 
 - **High Accuracy**: ~95% prediction accuracy on test data
 - **Real-time Processing**: Fast symptom analysis and prediction
-- **Async Operations**: Non-blocking disease description fetching
+- **Async Operations**: Prediction is shown first; the description loads afterwards
 - **Error Handling**: Comprehensive error management
 - **Cross-platform**: Works on Linux, macOS, and Windows
 
-## 🔧 Technology Stack
+## Technology Stack
 
 - **Machine Learning**: scikit-learn, pandas, numpy
 - **Backend**: Flask, Gunicorn, Flask-CORS
-- **Frontend**: Streamlit, aiohttp
+- **Frontend**: React 19, TypeScript, Vite, Tailwind CSS v4, Zustand, Axios, react-markdown, lucide-react
 - **AI Integration**: Google Gemini API
 - **Data Processing**: joblib, JSON-based mappings
 - **Deployment**: Docker, production WSGI server
 
-## ⚡ Quick Examples
+## Quick Examples
 
 ### API Usage
 
+All endpoints are served under `/api`. In dev mode the server runs on port `5000`
+(`./run.sh prod` uses port `8000`). `/predict` takes a plain JSON array of symptom names.
+
 ```bash
 # Get disease prediction
-curl -X POST http://localhost:8000/predict \
+curl -X POST http://localhost:5000/api/predict \
   -H "Content-Type: application/json" \
-  -d '{"symptoms": ["Itching", "Skin Rash", "High Fever"]}'
+  -d '["Itching", "Skin Rash", "High Fever"]'
 
 # Get disease description
-curl -X POST http://localhost:8000/disease_description \
+curl -X POST http://localhost:5000/api/disease_description \
   -H "Content-Type: application/json" \
   -d '{"disease_name": "Common Cold"}'
+
+# Health check
+curl http://localhost:5000/api/health
 ```
 
 ### Python Integration
@@ -112,13 +137,13 @@ curl -X POST http://localhost:8000/disease_description \
 import requests
 
 # Predict disease
-response = requests.post('http://localhost:8000/predict',
-    json={"symptoms": ["Headache", "Fever", "Nausea"]})
+response = requests.post('http://localhost:5000/api/predict',
+    json=["Headache", "High Fever", "Nausea"])
 disease = response.json()['disease']
 print(f"Predicted disease: {disease}")
 ```
 
-## 🏥 Supported Conditions
+## Supported Conditions
 
 The system can predict 41 different medical conditions including:
 
@@ -127,11 +152,11 @@ The system can predict 41 different medical conditions including:
 **Chronic Conditions**: Arthritis, GERD, Peptic Ulcer Disease\
 **Other Conditions**: Migraine, Jaundice, Heart Attack, and more
 
-## 🛡️ Medical Disclaimer
+## Medical Disclaimer
 
-⚠️ **Important**: This system is for **educational and informational purposes only**. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers for medical concerns.
+**Important**: This system is for **educational and informational purposes only**. It should not be used as a substitute for professional medical advice, diagnosis, or treatment. Always consult with qualified healthcare providers for medical concerns.
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Development Guide](./docs/development-guide.md) for:
 
@@ -140,13 +165,13 @@ We welcome contributions! Please see our [Development Guide](./docs/development-
 - Contribution guidelines
 - Testing procedures
 
-## 📞 Support
+## Support
 
 - **Documentation**: Check the [docs/](./docs/) directory
 - **Issues**: Create a GitHub issue for bugs or feature requests
 - **Questions**: Refer to the [User Guide](./docs/user-guide.md)
 
-## 📈 Performance
+## Performance
 
 - **Model Accuracy**: ~95% on test dataset
 - **API Response Time**: \<500ms for predictions
@@ -154,7 +179,7 @@ We welcome contributions! Please see our [Development Guide](./docs/development-
 - **Disease Categories**: 41 medical conditions
 - **Concurrent Users**: Supports multiple simultaneous users
 
-## 🔐 Privacy
+## Privacy
 
 - No personal data collection
 - Temporary session-based processing
@@ -163,4 +188,4 @@ We welcome contributions! Please see our [Development Guide](./docs/development-
 
 ______________________________________________________________________
 
-**Built with ❤️ for better healthcare accessibility through AI**
+**Built for better healthcare accessibility through AI**
