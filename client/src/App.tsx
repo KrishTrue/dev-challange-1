@@ -1,9 +1,28 @@
-import React from 'react'
+import React from 'react';
+import { useAppStore } from '@/store/appStore';
+import { Header } from '@/components/layout/Header';
+import { Footer } from '@/components/layout/Footer';
+import { HomePage } from '@/pages/Home';
+import { SourcesPage } from '@/pages/Sources';
 
-const App = () => {
+export const App: React.FC = () => {
+  const { activeTab } = useAppStore();
+
   return (
-    <div className='bg-red-500'>App</div>
-  )
-}
+    <div className="min-h-screen bg-slate-50 flex flex-col selection:bg-blue-100 selection:text-blue-900">
+      {/* Top Navigation */}
+      <Header />
 
-export default App
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        {activeTab === 'home' && <HomePage />}
+        {activeTab === 'sources' && <SourcesPage />}
+      </main>
+
+      {/* Footer */}
+      <Footer />
+    </div>
+  );
+};
+
+export default App;
