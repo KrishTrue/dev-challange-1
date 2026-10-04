@@ -2,7 +2,7 @@
 
 **Advanced AI-powered disease prediction based on symptoms**
 
-An intelligent medical assistance system that uses machine learning to predict diseases based on user-selected symptoms, powered by Random Forest classification and Google Gemini AI for detailed disease descriptions.
+An intelligent medical assistance system that uses machine learning to predict diseases based on user-selected symptoms, powered by Random Forest classification and local open-source LLMs via Ollama (`ollama pull qwen3:1.7b`) for detailed disease descriptions.
 
 ## Quick Start
 
@@ -16,12 +16,15 @@ Visit the web application and start predicting diseases based on your symptoms:
 
 ### For Developers
 
-**Prerequisites:** Python 3 with [uv](https://docs.astral.sh/uv/), Node.js 20+ and [pnpm](https://pnpm.io/)
+**Prerequisites:** Python 3 with [uv](https://docs.astral.sh/uv/), Node.js 20+, [pnpm](https://pnpm.io/), and [Ollama](https://ollama.com/) (`ollama pull qwen3:1.7b`)
 
 ```bash
 # Clone repository
 git clone <repository-url>
 cd dev-challenge-1
+
+# Pull local model
+ollama pull qwen3:1.7b
 
 # Start backend (Terminal 1) - runs on http://127.0.0.1:5000
 cd backend && ./run.sh dev
@@ -43,7 +46,7 @@ VITE_API_BASE_URL=http://localhost:5000/api
 - **ML Model**: Random Forest Classifier with ~95% accuracy
 - **Symptoms**: 132 different medical symptoms
 - **Diseases**: 41 different medical conditions
-- **AI Integration**: Google Gemini for disease descriptions
+- **AI Integration**: Ollama (`qwen3:1.7b`) for disease descriptions
 - **Interface**: React + Vite chat-style web app
 - **API**: Flask-based REST API
 
@@ -85,7 +88,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 ### Core Features
 
 - **Symptom-based Prediction**: Select from 130+ medical symptoms
-- **AI Disease Descriptions**: Detailed information powered by Google Gemini
+- **AI Disease Descriptions**: Detailed information powered by Ollama (`qwen3:1.7b`)
 - **Chat-style Assistant**: Your symptoms appear on the right and the assessment on the left, like a chatbot
 - **Symptom Picker**: Search, filter by body-system category, or one-click common symptoms
 - **Structured Report**: Each result is split into Overview, Symptoms, Causes, Precautions and Medication
@@ -105,7 +108,7 @@ Comprehensive documentation is available in the [`docs/`](./docs/) directory:
 - **Machine Learning**: scikit-learn, pandas, numpy
 - **Backend**: Flask, Gunicorn, Flask-CORS
 - **Frontend**: React 19, TypeScript, Vite, Tailwind CSS v4, Zustand, Axios, react-markdown, lucide-react
-- **AI Integration**: Google Gemini API
+- **AI Integration**: Ollama (`qwen3:1.7b` local inference)
 - **Data Processing**: joblib, JSON-based mappings
 - **Deployment**: Docker, production WSGI server
 
